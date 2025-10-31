@@ -450,6 +450,35 @@
             font-weight: 600;
         }
 
+        .calendar-btn {
+            margin-top: 2rem;
+            padding: 15px 35px;
+            background: #d4a574;
+            border: none;
+            color: #0a0a0a;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calendar-btn:hover {
+            background: #c89a68;
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .calendar-btn::before {
+            content: '📅';
+            font-size: 1.3rem;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -732,6 +761,9 @@
             <div class="selection-message" id="selectionMessage">
                 <div class="heart">💝</div>
                 <p id="selectedDateText"></p>
+                <button class="calendar-btn" id="addToCalendar" style="display: none;">
+                    Naptárba mentés
+                </button>
             </div>
         </div>
     </section>
@@ -808,6 +840,34 @@
         const dateCards = document.querySelectorAll('.date-card');
         const selectionMessage = document.getElementById('selectionMessage');
         const selectedDateText = document.getElementById('selectedDateText');
+        const addToCalendarBtn = document.getElementById('addToCalendar');
+        let selectedDateInfo = null;
+
+        // Date configurations for calendar
+        const dateConfigs = {
+            '2025. december 20-22': {
+                start: '20251220',
+                end: '20251222',
+                startTime: '150000',
+                endTime: '120000',
+                title: 'Romantikus lombház hétvége Noszvajon - Flora születésnapi meglepetése'
+            },
+            '2025. december 25-27': {
+                start: '20251225',
+                end: '20251227',
+                startTime: '150000',
+                endTime: '120000',
+                title: 'Karácsonyi lombház hétvége Noszvajon - Flora születésnapi meglepetése'
+            },
+            '2026. január': {
+                start: '20260110',
+                end: '20260112',
+                startTime: '150000',
+                endTime: '120000',
+                title: 'Újévi lombház hétvége Noszvajon - Flora születésnapi meglepetése',
+                note: 'Pontos dátumot később egyeztetjük'
+            }
+        };
 
         dateCards.forEach(card => {
             card.addEventListener('click', function() {
@@ -819,16 +879,62 @@
 
                 // Get the selected dates
                 const dates = this.getAttribute('data-dates');
+                selectedDateInfo = dateConfigs[dates];
 
                 // Update and show the selection message
                 selectedDateText.textContent = `Tökéletes! A(z) ${dates} dátumot választottad. Alig várom, hogy megosszam veled ezt a varázslatos élményt! 💕`;
                 selectionMessage.classList.add('visible');
+                addToCalendarBtn.style.display = 'inline-flex';
 
                 // Smooth scroll to show the message
                 setTimeout(() => {
                     selectionMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             });
+        });
+
+        // Calendar export functionality
+        addToCalendarBtn.addEventListener('click', function() {
+            if (!selectedDateInfo) return;
+
+            const event = {
+                title: selectedDateInfo.title,
+                description: selectedDateInfo.note ?
+                    `Luxus lombház élmény a TreeHouses Noszvaj Kilátó Toronyban.\\n\\nProgramok:\\n- Privát jakuzzi\\n- Infrasauna\\n- Ínyenc reggeli\\n- Teljes magánélet a fák között\\n\\nMegjegyzés: ${selectedDateInfo.note}` :
+                    'Luxus lombház élmény a TreeHouses Noszvaj Kilátó Toronyban.\\n\\nProgramok:\\n- Privát jakuzzi\\n- Infrasauna\\n- Ínyenc reggeli\\n- Teljes magánélet a fák között',
+                location: 'TreeHouses Noszvaj - Kilátó Torony, Noszvaj, Hungary',
+                start: selectedDateInfo.start + 'T' + selectedDateInfo.startTime,
+                end: selectedDateInfo.end + 'T' + selectedDateInfo.endTime
+            };
+
+            const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//TreeHouses Noszvaj//Flora Birthday//HU',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VEVENT',
+                `DTSTART:${event.start}`,
+                `DTEND:${event.end}`,
+                `SUMMARY:${event.title}`,
+                `DESCRIPTION:${event.description}`,
+                `LOCATION:${event.location}`,
+                'STATUS:CONFIRMED',
+                'SEQUENCE:0',
+                `UID:${Date.now()}@treehouses-flora`,
+                `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+
+            // Create blob and download
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'flora-lomhaz-hetvege.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     </script>
 </body>
