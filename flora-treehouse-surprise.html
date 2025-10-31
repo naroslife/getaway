@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise for Flora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', Georgia, serif;
+            overflow-x: hidden;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.5rem;
+            color: #d4a574;
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 400;
+            color: #d4a574;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+                        url('images/1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero h1 {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+            color: #d4a574;
+            font-weight: 300;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.5s forwards, bounce 2s infinite 2.5s;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 2rem;
+            color: #d4a574;
+        }
+
+        /* Reveal Section */
+        .reveal-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
+        }
+
+        .reveal-content {
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .location-tag {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid #d4a574;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Experience Grid */
+        .experience-section {
+            padding: 100px 20px;
+            background: #0f0f0f;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 60px;
+        }
+
+        .experience-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .experience-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease-out;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 165, 116, 0.1);
+        }
+
+        .experience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 400px;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Message Section */
+        .message-section {
+            padding: 120px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1f1f1f 100%);
+            position: relative;
+        }
+
+        .message-content {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .message-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 1s ease-out;
+        }
+
+        .heart {
+            font-size: 3rem;
+            color: #d4a574;
+            margin: 2rem 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        /* Details Section */
+        .details-section {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .details-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .details-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(212, 165, 116, 0.1);
+        }
+
+        .details-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .details-text h3 {
+            margin-bottom: 2rem;
+        }
+
+        .amenity-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .amenity-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .amenity-list li::before {
+            content: '✨';
+            font-size: 1.2rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)),
+                        url('images/11.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .date-reveal {
+            display: inline-block;
+            padding: 20px 40px;
+            background: rgba(212, 165, 116, 0.1);
+            border: 2px solid #d4a574;
+            border-radius: 10px;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .date-reveal h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .details-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: #d4a574;
+            letter-spacing: 0.2em;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">Preparing Your Surprise...</div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Dear Flora</h1>
+            <p class="subtitle">Your Birthday Adventure Awaits</p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Reveal Section -->
+    <section class="reveal-section">
+        <div class="reveal-content">
+            <span class="location-tag">Noszvaj, Hungary</span>
+            <h2>A Winter Escape Above the Clouds</h2>
+            <p>
+                Imagine waking up 10 meters high among the treetops, surrounded by the pristine beauty of the Hungarian forest. 
+                This isn't just a getaway—it's our private sanctuary in the sky, where time slows down and every moment becomes magical.
+            </p>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section">
+        <div class="reveal-content">
+            <h2>Your Luxury Treehouse Experience</h2>
+            <p>The Observation Tower at TreeHouses.hu - Where dreams meet reality</p>
+        </div>
+        
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-icon">🛁</div>
+                <h3>Private Jacuzzi</h3>
+                <p>Soak under the stars in your own private hot tub, surrounded by the whispers of the forest</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🔥</div>
+                <h3>Infrared Sauna</h3>
+                <p>Warm your soul in the glowing amber light of your personal wellness retreat</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🍷</div>
+                <h3>Wine & Dine</h3>
+                <p>Selected wines and gourmet breakfast prepared just for us</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🌲</div>
+                <h3>10 Meters High</h3>
+                <p>Experience life among the treetops in architectural harmony with nature</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">✨</div>
+                <h3>Complete Privacy</h3>
+                <p>Just you, me, and the enchanted forest around us</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🌙</div>
+                <h3>Starlit Nights</h3>
+                <p>Fall asleep to nature's lullaby and wake to birdsong</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="reveal-content">
+            <h2>Our Romantic Retreat</h2>
+            <p>Every corner designed for unforgettable moments</p>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/1.jpg" alt="Night view">
+                <div class="gallery-caption">
+                    <h3>Enchanted Evenings</h3>
+                    <p>The treehouse glows like a lantern in the forest</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/2.jpg" alt="Interior">
+                <div class="gallery-caption">
+                    <h3>Cozy Luxury</h3>
+                    <p>Modern comfort meets rustic charm</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/3.jpg" alt="Jacuzzi">
+                <div class="gallery-caption">
+                    <h3>Private Paradise</h3>
+                    <p>Your personal spa in the sky</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/4.jpg" alt="Bedroom">
+                <div class="gallery-caption">
+                    <h3>Dream Suite</h3>
+                    <p>Wake up to panoramic forest views</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/8.jpg" alt="Sauna">
+                <div class="gallery-caption">
+                    <h3>Wellness Haven</h3>
+                    <p>Infrared sauna for two</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/5.jpg" alt="Aerial view">
+                <div class="gallery-caption">
+                    <h3>Above It All</h3>
+                    <p>Your castle in the clouds</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="details-section">
+        <div class="details-container">
+            <div class="details-image">
+                <img src="images/6.jpg" alt="Treehouse exterior">
+            </div>
+            <div class="details-text">
+                <h3>Everything You've Dreamed Of</h3>
+                <ul class="amenity-list">
+                    <li>Floor-to-ceiling windows with forest views</li>
+                    <li>King-size bed with luxury linens</li>
+                    <li>Private outdoor jacuzzi</li>
+                    <li>Infrared sauna with chromotherapy</li>
+                    <li>Air conditioning & heating</li>
+                    <li>Curated wine selection</li>
+                    <li>Gourmet breakfast delivered</li>
+                    <li>Complete privacy & tranquility</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Section -->
+    <section class="message-section">
+        <div class="message-content">
+            <h2>My Love Letter to You</h2>
+            <div class="heart">❤️</div>
+            <p>
+                Flora, every day with you is an adventure, but for your birthday, I wanted to give you something extraordinary. 
+                A place where we can escape the world, where the only sounds are our laughter and the forest's gentle whispers.
+            </p>
+            <br>
+            <p>
+                In this magical treehouse, we'll create memories that will last a lifetime. Just you, me, the stars above, 
+                and all the time in the world to simply be together. No stress, no rush—just us and this beautiful moment.
+            </p>
+            <br>
+            <p>
+                Happy Birthday, my love. This is just the beginning of your celebration.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="reveal-content">
+            <h2>Ready for Your Adventure?</h2>
+            <p>Pack your coziest clothes and your sense of wonder</p>
+            <div class="date-reveal">
+                <h3>🗓️ Your Winter Weekend Awaits</h3>
+                <p>Let's choose the perfect dates together</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Remove loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.reveal-content, .experience-card, .gallery-item, .message-content').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add staggered animation delays to cards
+        document.querySelectorAll('.experience-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Parallax effect for hero and CTA backgrounds
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            const parallaxCta = document.querySelector('.cta-section');
+            
+            if (parallax) {
+                const speed = 0.5;
+                parallax.style.transform = `translateY(${scrolled * speed}px)`;
+            }
+            
+            if (parallaxCta) {
+                const rect = parallaxCta.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const speed = 0.3;
+                    const yPos = -(scrolled - parallaxCta.offsetTop) * speed;
+                    parallaxCta.style.backgroundPositionY = `${yPos}px`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
