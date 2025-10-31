@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a single-page HTML surprise birthday gift website for Flora, showcasing a romantic treehouse getaway in Noszvaj, Hungary. The site is entirely self-contained with no build process or dependencies.
+This is a single-page HTML surprise birthday gift website for Flóra, showcasing a romantic treehouse getaway in Noszvaj, Hungary. The site is entirely self-contained with no build process or dependencies.
 
 ## File Structure
 
