@@ -332,6 +332,124 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Date Selection Cards */
+        .date-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .date-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .date-card:hover {
+            transform: translateY(-10px);
+            border-color: #d4a574;
+            box-shadow: 0 20px 40px rgba(212, 165, 116, 0.2);
+        }
+
+        .date-card.selected {
+            background: rgba(212, 165, 116, 0.15);
+            border-color: #d4a574;
+            border-width: 3px;
+            box-shadow: 0 0 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .date-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            filter: grayscale(0.3);
+            transition: filter 0.3s ease;
+        }
+
+        .date-card:hover .date-icon,
+        .date-card.selected .date-icon {
+            filter: grayscale(0);
+        }
+
+        .date-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #d4a574;
+        }
+
+        .date-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 1rem 0;
+            letter-spacing: 0.05em;
+        }
+
+        .date-card p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 1rem auto;
+        }
+
+        .select-btn {
+            margin-top: 1.5rem;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #d4a574;
+            color: #d4a574;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            letter-spacing: 0.05em;
+        }
+
+        .select-btn:hover {
+            background: #d4a574;
+            color: #0a0a0a;
+            transform: scale(1.05);
+        }
+
+        .date-card.selected .select-btn {
+            background: #d4a574;
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+
+        .selection-message {
+            margin-top: 3rem;
+            padding: 30px;
+            background: rgba(212, 165, 116, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+
+        .selection-message.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .selection-message .heart {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .selection-message p {
+            font-size: 1.3rem;
+            color: #d4a574;
+            font-weight: 600;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -582,11 +700,38 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="reveal-content">
-            <h2>Ready for Your Adventure?</h2>
-            <p>Pack your coziest clothes and your sense of wonder</p>
-            <div class="date-reveal">
-                <h3>🗓️ Your Winter Weekend Awaits</h3>
-                <p>Let's choose the perfect dates together</p>
+            <h2>Choose Your Perfect Dates</h2>
+            <p>Select the weekend that works best for you, my love</p>
+
+            <div class="date-options">
+                <div class="date-card" data-dates="December 20-22, 2025">
+                    <div class="date-icon">🎄</div>
+                    <h3>Pre-Christmas Escape</h3>
+                    <div class="date-text">December 20-22, 2025</div>
+                    <p>A cozy winter retreat before the holiday festivities</p>
+                    <button class="select-btn">Choose This Weekend</button>
+                </div>
+
+                <div class="date-card" data-dates="December 25-27, 2025">
+                    <div class="date-icon">❄️</div>
+                    <h3>Christmas Weekend</h3>
+                    <div class="date-text">December 25-27, 2025</div>
+                    <p>Celebrate our own magical Christmas among the trees</p>
+                    <button class="select-btn">Choose This Weekend</button>
+                </div>
+
+                <div class="date-card" data-dates="January 2026">
+                    <div class="date-icon">✨</div>
+                    <h3>New Year Getaway</h3>
+                    <div class="date-text">January 2026</div>
+                    <p>Start the new year together in our winter paradise</p>
+                    <button class="select-btn">Choose This Weekend</button>
+                </div>
+            </div>
+
+            <div class="selection-message" id="selectionMessage">
+                <div class="heart">💝</div>
+                <p id="selectedDateText"></p>
             </div>
         </div>
     </section>
@@ -643,12 +788,12 @@
             const scrolled = window.pageYOffset;
             const parallax = document.querySelector('.hero');
             const parallaxCta = document.querySelector('.cta-section');
-            
+
             if (parallax) {
                 const speed = 0.5;
                 parallax.style.transform = `translateY(${scrolled * speed}px)`;
             }
-            
+
             if (parallaxCta) {
                 const rect = parallaxCta.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
@@ -657,6 +802,33 @@
                     parallaxCta.style.backgroundPositionY = `${yPos}px`;
                 }
             }
+        });
+
+        // Date selection functionality
+        const dateCards = document.querySelectorAll('.date-card');
+        const selectionMessage = document.getElementById('selectionMessage');
+        const selectedDateText = document.getElementById('selectedDateText');
+
+        dateCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                dateCards.forEach(c => c.classList.remove('selected'));
+
+                // Add selected class to clicked card
+                this.classList.add('selected');
+
+                // Get the selected dates
+                const dates = this.getAttribute('data-dates');
+
+                // Update and show the selection message
+                selectedDateText.textContent = `Perfect! You've chosen ${dates}. I can't wait to share this magical experience with you! 💕`;
+                selectionMessage.classList.add('visible');
+
+                // Smooth scroll to show the message
+                setTimeout(() => {
+                    selectionMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            });
         });
     </script>
 </body>
