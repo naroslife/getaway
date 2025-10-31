@@ -448,66 +448,6 @@
             font-size: 1.3rem;
             color: #d4a574;
             font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .reset-btn {
-            margin-top: 0.5rem;
-            padding: 12px 30px;
-            background: transparent;
-            border: 2px solid rgba(212, 165, 116, 0.5);
-            color: rgba(212, 165, 116, 0.8);
-            border-radius: 30px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Georgia', serif;
-            letter-spacing: 0.05em;
-        }
-
-        .reset-btn:hover {
-            border-color: #d4a574;
-            color: #d4a574;
-            transform: scale(1.05);
-        }
-
-        .date-card.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: #d4a574;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #0a0a0a;
-            font-weight: bold;
-            animation: checkmark 0.5s ease;
-        }
-
-        @keyframes checkmark {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
         }
 
         .calendar-btn {
@@ -537,280 +477,6 @@
         .calendar-btn::before {
             content: '📅';
             font-size: 1.3rem;
-        }
-
-        /* Sticky Navigation */
-        .nav-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 15px 30px;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
-        }
-
-        .nav-header.visible {
-            transform: translateY(0);
-        }
-
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 1.2rem;
-            color: #d4a574;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            transition: color 0.3s ease;
-            opacity: 0.9;
-        }
-
-        .nav-links a:hover {
-            color: #d4a574;
-            opacity: 1;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 2px;
-            background: #d4a574;
-            transition: all 0.3s ease;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: #d4a574;
-            border: none;
-            border-radius: 50%;
-            color: #0a0a0a;
-            font-size: 1.5rem;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .back-to-top:hover {
-            background: #c89a68;
-            transform: scale(1.1);
-        }
-
-        /* Gallery Lightbox */
-        .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lightbox.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .lightbox-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .lightbox img {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: rgba(212, 165, 116, 0.9);
-            border: none;
-            border-radius: 50%;
-            color: #0a0a0a;
-            font-size: 2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 2001;
-        }
-
-        .lightbox-close:hover {
-            background: #d4a574;
-            transform: scale(1.1);
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(212, 165, 116, 0.9);
-            border: none;
-            border-radius: 50%;
-            color: #0a0a0a;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-nav:hover {
-            background: #d4a574;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .lightbox-prev {
-            left: 20px;
-        }
-
-        .lightbox-next {
-            right: 20px;
-        }
-
-        .lightbox-caption {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px 30px;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 80%;
-        }
-
-        .lightbox-caption h3 {
-            color: #d4a574;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .lightbox-caption p {
-            color: #fff;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* Map Section */
-        .map-section {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            text-align: center;
-        }
-
-        .map-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .map-intro {
-            margin-bottom: 3rem;
-        }
-
-        .map-intro h2 {
-            margin-bottom: 1rem;
-        }
-
-        .map-intro p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        .map-wrapper {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(212, 165, 116, 0.15);
-            border: 2px solid rgba(212, 165, 116, 0.2);
-        }
-
-        .map-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
         }
 
         /* Animations */
@@ -861,79 +527,6 @@
             p {
                 font-size: 1rem;
             }
-
-            /* Fix iOS Safari issues */
-            .hero,
-            .cta-section {
-                background-attachment: scroll; /* Fixed backgrounds don't work on iOS */
-            }
-
-            /* Fix viewport height for mobile browsers */
-            .hero {
-                min-height: 100vh;
-                min-height: -webkit-fill-available;
-            }
-
-            /* Make gallery captions always visible on mobile */
-            .gallery-caption {
-                transform: translateY(0);
-                position: relative;
-                background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.85));
-                padding: 15px;
-            }
-
-            .gallery-item {
-                height: auto;
-            }
-
-            /* Larger touch targets for date cards */
-            .select-btn {
-                padding: 15px 35px;
-                min-height: 48px;
-            }
-
-            .date-card {
-                padding: 35px 25px;
-            }
-
-            /* Mobile navigation */
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 10, 0.98);
-                flex-direction: column;
-                gap: 0;
-                padding: 20px 0;
-                transform: translateY(-100%);
-                opacity: 0;
-                pointer-events: none;
-                transition: all 0.3s ease;
-            }
-
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            .nav-links a {
-                padding: 15px 30px;
-                border-bottom: 1px solid rgba(212, 165, 116, 0.1);
-            }
-
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
         }
 
         /* Loading Animation */
@@ -970,33 +563,13 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Header -->
-    <nav class="nav-header" id="navHeader">
-        <div class="nav-content">
-            <div class="nav-logo">Flóra ✨</div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#hero">Kezdőlap</a></li>
-                <li><a href="#location">Helyszín</a></li>
-                <li><a href="#experiences">Élmények</a></li>
-                <li><a href="#gallery">Galéria</a></li>
-                <li><a href="#message">Üzenet</a></li>
-                <li><a href="#dates">Dátumok</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-text">A meglepetésed készül...</div>
     </div>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
+    <section class="hero">
         <div class="hero-content">
             <h1>Kedves Flóra!</h1>
             <p class="subtitle">A születésnapi kalandod vár</p>
@@ -1005,7 +578,7 @@
     </section>
 
     <!-- Reveal Section -->
-    <section class="reveal-section" id="location">
+    <section class="reveal-section">
         <div class="reveal-content">
             <span class="location-tag">Noszvaj, Magyarország</span>
             <h2>Téli kikapcsolódás a felhők felett</h2>
@@ -1017,10 +590,10 @@
     </section>
 
     <!-- Experience Section -->
-    <section class="experience-section" id="experiences">
+    <section class="experience-section">
         <div class="reveal-content">
-            <h2>Luxus lombház élményünk</h2>
-            <p>A Kilátó Torony Noszvajon - Ahol az álmok találkoznak a valósággal</p>
+            <h2>Luxus lombház élményetek</h2>
+            <p>A Kilátó Torony a TreeHouses.hu-n - Ahol az álmok találkoznak a valósággal</p>
         </div>
 
         <div class="experience-grid">
@@ -1058,50 +631,50 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="gallery-section" id="gallery">
+    <section class="gallery-section">
         <div class="reveal-content">
             <h2>Romantikus menedékünk</h2>
             <p>Minden sarok felejthetetlen pillanatokra tervezve</p>
         </div>
 
         <div class="gallery-grid">
-            <div class="gallery-item" data-index="0">
-                <img src="images/1.jpg" alt="Éjszakai látkép" loading="lazy">
+            <div class="gallery-item">
+                <img src="images/1.jpg" alt="Éjszakai látkép">
                 <div class="gallery-caption">
                     <h3>Varázsestélyek</h3>
                     <p>A lombház úgy ragyog, mint egy lámpás az erdőben</p>
                 </div>
             </div>
-            <div class="gallery-item" data-index="1">
-                <img src="images/2.jpg" alt="Belső tér" loading="lazy">
+            <div class="gallery-item">
+                <img src="images/2.jpg" alt="Belső tér">
                 <div class="gallery-caption">
                     <h3>Hangulatos luxus</h3>
                     <p>Modern kényelem találkozik a rusztikus bájjal</p>
                 </div>
             </div>
-            <div class="gallery-item" data-index="2">
-                <img src="images/3.jpg" alt="Jakuzzi" loading="lazy">
+            <div class="gallery-item">
+                <img src="images/3.jpg" alt="Jakuzzi">
                 <div class="gallery-caption">
                     <h3>Privát paradicsom</h3>
                     <p>A személyes spa-d az égben</p>
                 </div>
             </div>
-            <div class="gallery-item" data-index="3">
-                <img src="images/4.jpg" alt="Hálószoba" loading="lazy">
+            <div class="gallery-item">
+                <img src="images/4.jpg" alt="Hálószoba">
                 <div class="gallery-caption">
                     <h3>Álomszoba</h3>
                     <p>Ébredj panoráma erdőre néző kilátással</p>
                 </div>
             </div>
-            <div class="gallery-item" data-index="4">
-                <img src="images/8.jpg" alt="Szauna" loading="lazy">
+            <div class="gallery-item">
+                <img src="images/8.jpg" alt="Szauna">
                 <div class="gallery-caption">
                     <h3>Wellness mennyország</h3>
                     <p>Infrasauna két főre</p>
                 </div>
             </div>
-            <div class="gallery-item" data-index="5">
-                <img src="images/5.jpg" alt="Felülnézet" loading="lazy">
+            <div class="gallery-item">
+                <img src="images/5.jpg" alt="Felülnézet">
                 <div class="gallery-caption">
                     <h3>Mindenek felett</h3>
                     <p>A te kastélyod a felhőkben</p>
@@ -1114,7 +687,7 @@
     <section class="details-section">
         <div class="details-container">
             <div class="details-image">
-                <img src="images/6.jpg" alt="Lombház külső" loading="lazy">
+                <img src="images/6.jpg" alt="Lombház külső">
             </div>
             <div class="details-text">
                 <h3>Minden, amiről álmodtál</h3>
@@ -1132,30 +705,8 @@
         </div>
     </section>
 
-    <!-- Map Section -->
-    <section class="map-section">
-        <div class="map-container">
-            <div class="map-intro">
-                <h2>Hol található?</h2>
-                <p>A Bükki Nemzeti Parkban, Noszvaj szívében</p>
-            </div>
-            <div class="map-wrapper">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2645.9358754889645!2d20.457658!3d48.061237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4740870bd2e6f5b9%3A0x8c8f9d5b1e8f9d5b!2sTreeHouses%20Noszvaj!5e0!3m2!1shu!2shu!4v1234567890"
-                    width="600"
-                    height="450"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="TreeHouses Noszvaj helyszíne">
-                </iframe>
-            </div>
-        </div>
-    </section>
-
     <!-- Message Section -->
-    <section class="message-section" id="message">
+    <section class="message-section">
         <div class="message-content">
             <h2>Szerelmes levelem hozzád</h2>
             <div class="heart">❤️</div>
@@ -1176,7 +727,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section" id="dates">
+    <section class="cta-section">
         <div class="reveal-content">
             <h2>Válaszd ki a tökéletes időpontot</h2>
             <p>Válaszd ki azt a hétvégét, amelyik neked a legjobb, szerelmem</p>
@@ -1210,14 +761,9 @@
             <div class="selection-message" id="selectionMessage">
                 <div class="heart">💝</div>
                 <p id="selectedDateText"></p>
-                <div class="button-group" id="buttonGroup" style="display: none;">
-                    <button class="calendar-btn" id="addToCalendar">
-                        Naptárba mentés
-                    </button>
-                    <button class="reset-btn" id="resetSelection">
-                        Válassz újra
-                    </button>
-                </div>
+                <button class="calendar-btn" id="addToCalendar" style="display: none;">
+                    Naptárba mentés
+                </button>
             </div>
         </div>
     </section>
@@ -1295,8 +841,6 @@
         const selectionMessage = document.getElementById('selectionMessage');
         const selectedDateText = document.getElementById('selectedDateText');
         const addToCalendarBtn = document.getElementById('addToCalendar');
-        const resetSelectionBtn = document.getElementById('resetSelection');
-        const buttonGroup = document.getElementById('buttonGroup');
         let selectedDateInfo = null;
 
         // Date configurations for calendar
@@ -1340,26 +884,13 @@
                 // Update and show the selection message
                 selectedDateText.textContent = `Tökéletes! A(z) ${dates} dátumot választottad. Alig várom, hogy megosszam veled ezt a varázslatos élményt! 💕`;
                 selectionMessage.classList.add('visible');
-                buttonGroup.style.display = 'flex';
+                addToCalendarBtn.style.display = 'inline-flex';
 
                 // Smooth scroll to show the message
                 setTimeout(() => {
                     selectionMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             });
-        });
-
-        // Reset selection functionality
-        resetSelectionBtn.addEventListener('click', () => {
-            dateCards.forEach(c => c.classList.remove('selected'));
-            selectionMessage.classList.remove('visible');
-            buttonGroup.style.display = 'none';
-            selectedDateInfo = null;
-
-            // Scroll back to date options
-            setTimeout(() => {
-                document.getElementById('dates').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
         });
 
         // Calendar export functionality
@@ -1405,179 +936,6 @@
             link.click();
             document.body.removeChild(link);
         });
-
-        // Navigation menu functionality
-        const navHeader = document.getElementById('navHeader');
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        const backToTop = document.querySelector('.back-to-top');
-        let lastScrollTop = 0;
-        let scrollThreshold = 300;
-
-        // Show/hide navigation on scroll
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            // Show nav after scrolling past hero
-            if (scrollTop > scrollThreshold) {
-                navHeader.classList.add('visible');
-            } else {
-                navHeader.classList.remove('visible');
-            }
-
-            // Show back-to-top button
-            if (scrollTop > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-
-            lastScrollTop = scrollTop;
-        });
-
-        // Hamburger menu toggle
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Back to top functionality
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Gallery lightbox functionality
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxTitle = document.getElementById('lightboxTitle');
-        const lightboxDesc = document.getElementById('lightboxDesc');
-        const lightboxClose = document.getElementById('lightboxClose');
-        const lightboxPrev = document.getElementById('lightboxPrev');
-        const lightboxNext = document.getElementById('lightboxNext');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        let currentIndex = 0;
-
-        const galleryData = [
-            { src: 'images/1.jpg', title: 'Varázsestélyek', desc: 'A lombház úgy ragyog, mint egy lámpás az erdőben' },
-            { src: 'images/2.jpg', title: 'Hangulatos luxus', desc: 'Modern kényelem találkozik a rusztikus bájjal' },
-            { src: 'images/3.jpg', title: 'Privát paradicsom', desc: 'A személyes spa-d az égben' },
-            { src: 'images/4.jpg', title: 'Álomszoba', desc: 'Ébredj panoráma erdőre néző kilátással' },
-            { src: 'images/8.jpg', title: 'Wellness mennyország', desc: 'Infrasauna két főre' },
-            { src: 'images/5.jpg', title: 'Mindenek felett', desc: 'A te kastélyod a felhőkben' }
-        ];
-
-        function openLightbox(index) {
-            currentIndex = index;
-            updateLightboxImage();
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function updateLightboxImage() {
-            const item = galleryData[currentIndex];
-            lightboxImg.src = item.src;
-            lightboxImg.alt = item.title;
-            lightboxTitle.textContent = item.title;
-            lightboxDesc.textContent = item.desc;
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % galleryData.length;
-            updateLightboxImage();
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
-            updateLightboxImage();
-        }
-
-        // Open lightbox on gallery item click
-        galleryItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                openLightbox(index);
-            });
-        });
-
-        // Close lightbox
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        // Navigation
-        lightboxPrev.addEventListener('click', (e) => {
-            e.stopPropagation();
-            prevImage();
-        });
-
-        lightboxNext.addEventListener('click', (e) => {
-            e.stopPropagation();
-            nextImage();
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (!lightbox.classList.contains('active')) return;
-
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') prevImage();
-            if (e.key === 'ArrowRight') nextImage();
-        });
-
-        // Touch/swipe support
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        lightbox.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        lightbox.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            if (touchStartX - touchEndX > swipeThreshold) {
-                nextImage();
-            } else if (touchEndX - touchStartX > swipeThreshold) {
-                prevImage();
-            }
-        }
     </script>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" aria-label="Vissza a tetejére">↑</button>
-
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose" aria-label="Bezárás">×</button>
-        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Előző">‹</button>
-        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Következő">›</button>
-        <div class="lightbox-content">
-            <img src="" alt="" id="lightboxImg">
-            <div class="lightbox-caption" id="lightboxCaption">
-                <h3 id="lightboxTitle"></h3>
-                <p id="lightboxDesc"></p>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
